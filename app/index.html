@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2F3D24">
+  <title>birdly – app (béta)</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="device">
+    <div class="phone">
+      <header class="topbar">
+        <div class="logo"><span class="logo-bird">🐦</span>birdly</div>
+        <span class="beta">BÉTA</span>
+      </header>
+
+      <main id="view" class="view"></main>
+
+      <button id="sendBtn" class="fab" aria-label="Kép küldése">
+        <span>📷</span>
+      </button>
+
+      <nav class="tabbar">
+        <button data-tab="feed" class="active"><span class="ti">🏠</span><span>Főoldal</span></button>
+        <button data-tab="aviary"><span class="ti">🪺</span><span>Madárház</span></button>
+        <button data-tab="profile"><span class="ti">👤</span><span>Profil</span></button>
+      </nav>
+
+      <div id="sheet" class="sheet-backdrop" hidden>
+        <div class="sheet" id="sheetBody"></div>
+      </div>
+      <div id="toast" class="toast" hidden></div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "birdly",
+  "short_name": "birdly",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FBF4EA",
+  "theme_color": "#2F3D24",
+  "icons": [{ "src": "../assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
