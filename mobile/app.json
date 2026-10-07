@@ -1,0 +1,63 @@
+{
+  "expo": {
+    "name": "birdly",
+    "slug": "birdly",
+    "scheme": "birdly",
+    "version": "0.7.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#FBF4EA",
+    "ios": {
+      "bundleIdentifier": "com.birdly.app",
+      "buildNumber": "1",
+      "supportsTablet": false,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.birdly.app",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#2F3D24",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-image",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#2F3D24",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 180
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "A birdly a galériádból választott képet küldi el madárral az ismerőseidnek.",
+          "cameraPermission": "A birdly a kamerával készült fotót küldi el madárral az ismerőseidnek.",
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#F2954B"
+        }
+      ]
+    ]
+  }
+}

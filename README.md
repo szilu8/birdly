@@ -1,56 +1,50 @@
-# birdly 🐦 – bemutató béta
+# birdly 🐦
 
 Képküldő app, ahol a képeidet **madarak** viszik el az ismerőseid üzenőfalára.
 A képek **24 óra** után eltűnnek, **20 óra** után pedig befeketedik a szélük.
 
-Ez egy **kattintható bemutató prototípus** (nincs szerver, nincs regisztráció) –
-arra jó, hogy meg lehessen mutatni, hogyan nézne ki és működne az app.
+**Aktuális verzió: 0.7.0** – az első publikálásra szánt kiadás. A 0.x verziószám jelzi,
+hogy az app még nincs teljesen kész, de közel van a véglegeshez.
 
-## Megnyitás
+## Mappák
 
-Elég egy egyszerű statikus szerver a repó gyökerében:
+| Mappa | Tartalom |
+|---|---|
+| `mobile/` | **A valódi Android + iPhone app** (Expo / React Native, TypeScript) |
+| `supabase/` | Szerver: adatbázis séma és játékszabályok (`migrations/`), szerverfüggvények (`functions/`), ütemező (`setup/`), tesztek (`tests/`) |
+| `docs/TELEPITES.md` | **Lépésről lépésre útmutató** a szerver beállításához és a boltokba való kiadáshoz |
+| `index.html`, `assets/` | Bemutató weboldal (GitHub Pages) |
+| `app/` | A korábbi kattintható bemutató prototípus (böngészőben fut, szerver nélkül) |
+
+## Mit tud a 0.7?
+
+- **Fiók:** regisztráció e-mail címmel és egyedi felhasználónévvel, belépés, kijelentkezés, fiók végleges törlése
+- **Ismerősök:** jelölés felhasználónév alapján, elfogadás / elutasítás, törlés
+- **🏠 Főoldal:** az ismerősök madarai által hozott képek; „Úton feléd” sáv visszaszámlálással;
+  20 óra után befeketedő szél; 24 óra után a kép eltűnik (a szerverről is törlődik); „Tetszik”
+- **📷 Küldés:** fotó a kamerával vagy a galériából, felirat, címzett, pihent madár kiválasztása
+- **🪺 Madárház:** madarak statisztikákkal és állapottal (bevethető / úton / pihen), átnevezés;
+  keltető 2 fészekkel, 72 órás tojások, 3 naponta egy ingyenes tojás, véletlen kikelés; madárkatalógus
+- **👤 Profil:** ismerősök, beérkezett jelölések, elküldött képek állapota, beállítások
+- **🔔 Push értesítések:** megérkezett egy madár, kikelt egy tojás, kipihente magát egy madár
+- Minden játékszabály (időzítés, pihenés, kikelés) **a szerveren** fut, így nem lehet csalni
+
+### Madarak
+
+| Madár | Kézbesítés | Pihenő | Kikelési esély |
+|---|---|---|---|
+| 🕊️ Galamb | 1 óra | 23 óra | 60% |
+| 🦅 Sas | 15 perc | 24 óra | 30% |
+| 🐦 Sólyom | 1 perc | 32 óra | 10% |
+
+Új faj a `species` táblába vehető fel (az adatbázisban már előkészítve, kikapcsolva: bagoly, papagáj,
+hattyú, flamingó, páva – az `enabled` mező átállításával bekapcsolhatók).
+
+## Gyors indítás
+
+Lásd: [docs/TELEPITES.md](docs/TELEPITES.md)
 
 ```bash
-python3 -m http.server 8000
+cd mobile && cp .env.example .env   # Supabase URL + publishable kulcs
+npm install && npx expo start
 ```
-
-- Weboldal: http://localhost:8000/
-- App (mobil nézet): http://localhost:8000/app/
-
-Asztali gépen az app telefonkeretben jelenik meg, telefonon teljes képernyős.
-Telefonon a böngésző „Hozzáadás a kezdőképernyőhöz” menüjével app-ként is elindítható.
-
-## Mit tud a béta?
-
-| Fül | Tartalom |
-|---|---|
-| 🏠 **Főoldal** | Ismerőseid madarai által hozott képek, „Úton feléd” sáv, hátralévő idő, befeketedő szélek 20 óra után |
-| 🪺 **Madárház** | Madaraid statisztikákkal (kézbesítés / pihenés), állapot (bevethető / úton / pihen), tojáskeltetés (72 óra → véletlen madár), madárkatalógus |
-| 👤 **Profil** | Ismerősök, elküldött képeid, beállítások (dísznek), **Bemutató mód** |
-
-A 📷 gombbal képet küldhetsz: választasz képet (vagy saját feltöltést), címzettet és egy pihent madarat.
-
-**Bemutató mód** (Profil fül alján): előre lehet tekerni az időt (+1 / +4 / +24 óra), így a prezentáció közben
-látszik a képek befeketedése, a madarak pihenése és a tojás kikelése. A tojásnál van „Demo: kikeltetés most” gomb is.
-
-## Madarak
-
-| Madár | Kézbesítés | Pihenő |
-|---|---|---|
-| 🕊️ Galamb | 1 óra | 23 óra |
-| 🦅 Sas | 15 perc | 24 óra |
-| 🐦 Sólyom | 1 perc | 32 óra |
-
-A tojásból kikelhet még néhány *példa* madár is (bagoly, papagáj, hattyú, flamingó, páva) – ezek értékei csak illusztrációk.
-A fajok listája az `app/app.js` elején lévő `SPECIES` objektumban bővíthető.
-
-## Fájlok
-
-- `index.html` – bemutató weboldal (mellékes)
-- `app/` – a mobilapp prototípusa (HTML + CSS + JS, build nélkül)
-- `assets/icon.svg` – ikon
-
-## Következő lépések (ötlet)
-
-A valódi Android/iPhone apphoz javasolt egy közös kódbázisú keretrendszer (pl. React Native/Expo vagy Flutter),
-mellé backend (felhasználók, ismerősök, képtárolás, időzített kézbesítés, push értesítés).
